@@ -1,0 +1,24 @@
+
+
+.buttons {
+    margin: 10px;
+}
+
+.buttons button {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: transparent;
+    transition: all 0.3s;
+    font-size: large;
+    font-weight: bolder;
+    font-family: "Montserrat", sans-serif;
+}
+
+.buttons button:hover {
+    border-color:white;
+}
+.xmba25{
+    text-shadow: 2px 2px 4px black;
+    letter-spacing: 4px;
+    font-size: 11vw;
+}
