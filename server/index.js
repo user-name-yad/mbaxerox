@@ -62,6 +62,9 @@ const verfiyUser = (req, res, next) => {
         if (renewToken(req, res)) {
             next()
         }
+        else{
+            return res.json({ valid: false, message: 'refresh token returns false' })
+        }
     } else {
         jwt.verify(accesstoken, "access-token-secret-key", (err, decoded) => {
             if (err) return res.json({ valid: false, message: 'invalid token' })
