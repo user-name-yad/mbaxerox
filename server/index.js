@@ -11,8 +11,7 @@ const UserModel = require('./models/UserModel.js')
 const app = express()
 app.use(cors(
     {
-        origin:["https://mbaxerox25.vercel.app"],
-        methods:["POST","GET","DELETE","PUT"],
+        origin:"https://mbaxerox25.vercel.app",
     }
 ));
 app.use(express.json())
