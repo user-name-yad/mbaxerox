@@ -9,13 +9,7 @@ const AdminModel = require('./models/AdminModel.js')
 const UserModel = require('./models/UserModel.js')
 
 const app = express()
-app.use(cors(
-    {
-    origin:["https://mbaxerox25.vercel.app"],
-        methods:["POST","GET","PUT","DELETE"],
-        credentials:true
-}
-));
+app.use(cors());
 app.use(express.json())
 app.use(cookieParser())
 
@@ -32,8 +26,8 @@ app.post('/login', (req, res) => {
         .then(user => {
             if (user) {                
                 if (ismatch(password,user.password)) {
-                    const accessToken = jwt.sign({ email: email }, process.env.ACCESS_SECRET_KEY, { expiresIn: '15m' })
-                    const refreshToken = jwt.sign({ email: email }, process.env.REFRESH_SECRET_KEY, { expiresIn: '30m' })
+                    const accessToken = jwt.sign({ email: email }, "access-token-secret-key", { expiresIn: '15m' })
+                    const refreshToken = jwt.sign({ email: email }, "refersh-token-secret-key", { expiresIn: '30m' })
                     res.cookie('accessToken', accessToken, { maxAge: 900000 })
                     res.cookie('refreshToken', refreshToken, { maxAge: 1800000, httpOnly: true, secure: true, sameSite: 'strict' })
                     // res.cookie('accesToken', accessToken, { maxAge: 300000, httpOnly: true, secure: true, sameSite: 'strict' })
@@ -60,7 +54,7 @@ const verfiyUser = (req, res, next) => {
             next()
         }
     } else {
-        jwt.verify(accesstoken, process.env.ACCESS_SECRET_KEY, (err, decoded) => {
+        jwt.verify(accesstoken, "access-token-secret-key", (err, decoded) => {
             if (err) return res.json({ valid: false, message: 'invalid token' })
             else {
                 req.email = decoded.email
@@ -78,11 +72,11 @@ const renewToken = (req, res) => {
         res.json({ valid: false, message: 'no refresh token' })
     } 
     else {
-        jwt.verify(refreshtoken, process.env.REFRESH_SECRET_KEY, (err, decoded) => {
+        jwt.verify(refreshtoken, "refersh-token-secret-key", (err, decoded) => {
             if (err) {
                 return res.json({ valid: false, message: 'invalid refresh token' })
             } else {
-                const accessToken = jwt.sign({ email: decoded.email }, process.env.ACCESS_SECRET_KEY, { expiresIn: '15m' })
+                const accessToken = jwt.sign({ email: decoded.email }, "access-token-secret-key", { expiresIn: '15m' })
                 res.cookie('accessToken', accessToken, { maxAge: 60000 })
                 exist = true;
             }
@@ -222,9 +216,9 @@ app.post('/createadmin',(req,res)=>{
     AdminModel.create({email,password}).then(user=>res.json(user)).catch(err=>res.json(err))
 })
 
-mongoose.connect(process.env.URL).then(() => {
+mongoose.connect("mongodb+srv://yadhavan:doomsday@cluster0.3yca6is.mongodb.net/xeroxData?retryWrites=true&w=majority&appName=Cluster0").then(() => {
     console.log("connected to database");
-    app.listen(process.env.PORT, () => {
+    app.listen(5000, () => {
         console.log("damn its working");
     })
 }).catch((err) => {
