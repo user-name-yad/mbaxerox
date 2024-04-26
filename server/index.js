@@ -12,7 +12,7 @@ const app = express()
 app.use(cors(
     {
         origin:"https://mbaxerox25.vercel.app",
-        methods:["POST","GET","DELETE"],
+        method:["POST","GET","DELETE"],
         credentials:true
     }
 ));
