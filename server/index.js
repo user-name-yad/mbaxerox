@@ -62,9 +62,6 @@ const verfiyUser = (req, res, next) => {
         if (renewToken(req, res)) {
             next()
         }
-        else{
-            return res.json({ valid: false, message: 'refresh token returns false' })
-        }
     } else {
         jwt.verify(accesstoken, "access-token-secret-key", (err, decoded) => {
             if (err) return res.json({ valid: false, message: 'invalid token' })
@@ -96,6 +93,38 @@ const renewToken = (req, res) => {
     }
     return exist
 }
+
+
+
+
+
+app.post('/loginn',(req,res,next)=>{
+    const {email,password} = req.body
+    AdminModel.findOne({ email })
+    .then(user=>{
+        if(user.password === password){
+            res.json("send token")
+        }
+    })
+})
+
+const verify = (req,res,next)=>{
+    const token = req.headers.authorization
+    jwt.verify(token,"secret_key",(err,decoded)=>{
+        if(err) res.json('err')
+        else{
+            console.log(decoded);
+    }
+    })
+}
+
+
+
+
+
+
+
+
 // const renewToken = (req, res) => {
 //     const refreshtoken = req.cookies.refreshToken;
 //     let exist = false;
