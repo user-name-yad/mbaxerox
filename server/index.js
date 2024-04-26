@@ -9,7 +9,13 @@ const AdminModel = require('./models/AdminModel.js')
 const UserModel = require('./models/UserModel.js')
 
 const app = express()
-app.use(cors());
+app.use(cors(
+    {
+    origin:["https://mbaxerox25.vercel.app"],
+        methods:["POST","GET","PUT","DELETE"],
+        credentials:true
+}
+));
 app.use(express.json())
 app.use(cookieParser())
 
