@@ -8,7 +8,7 @@ const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate()
-    // axios.defaults.withCredentials = true;
+    axios.defaults.withCredentials = true;
     function handleSubmit(e) {
         e.preventDefault();
         axios.post(`https://users-api-neon.vercel.app/login`, { email, password })
