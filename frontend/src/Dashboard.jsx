@@ -19,15 +19,15 @@ const Dashboard = () => {
  const[lowbalance,setLowbalance] = useState([])
 
   axios.defaults.withCredentials=true
-  useEffect(()=>{
-      axios.get(`https://users-api-neon.vercel.app/dashboard`)
-      .then(res=>{
-          if(res.data.valid === false){
-              navigate('/')
-          }
-      })
-      .catch(err=>console.log(err))
-  })
+  // useEffect(()=>{
+  //     axios.get(`https://users-api-neon.vercel.app/dashboard`)
+  //     .then(res=>{
+  //         if(res.data.valid === false){
+  //             navigate('/')
+  //         }
+  //     })
+  //     .catch(err=>console.log(err))
+  // })
 
   function handleAddUser(e) {
     e.preventDefault()
