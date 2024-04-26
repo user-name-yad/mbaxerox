@@ -8,7 +8,7 @@ const GeneralUser = () => {
     const [userdata, setUserdata] = useState({})
     function getDetails(e) {
         e.preventDefault()
-        axios.post(`${process.env.REACT_APP_SERVER_URL}/findonee`, { batchno }).then(res => {
+        axios.post(`https://users-api-neon.vercel.app/findonee`, { batchno }).then(res => {
             setUserdata(res.data)
             setBatchno('')
         }).catch(err => console.log(err))

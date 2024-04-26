@@ -11,7 +11,7 @@ const Login = () => {
     axios.defaults.withCredentials = true;
     function handleSubmit(e) {
         e.preventDefault();
-        axios.post(`${process.env.REACT_APP_SERVER_URL}/login`, { email, password })
+        axios.post(`https://users-api-neon.vercel.app/login`, { email, password })
             .then(res => {
                 if (res.data.Login) {
                     navigate('/dashboard')

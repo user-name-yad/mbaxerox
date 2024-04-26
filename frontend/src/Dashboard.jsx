@@ -20,7 +20,7 @@ const Dashboard = () => {
 
   axios.defaults.withCredentials=true
   useEffect(()=>{
-      axios.get(`${process.env.REACT_APP_SERVER_URL}/dashboard`)
+      axios.get(`https://users-api-neon.vercel.app/dashboard`)
       .then(res=>{
           if(res.data.valid === false){
               navigate('/')
@@ -37,7 +37,7 @@ const Dashboard = () => {
       setTotal('')
       return alert('Credentials missing')
     }
-    axios.post(`${process.env.REACT_APP_SERVER_URL}/adduser`, { name, batchno, total })
+    axios.post(`https://users-api-neon.vercel.app/adduser`, { name, batchno, total })
       .then((res) => {
         if(res.data.name === "ValidationError"){
           alert("Total is Invalid")
@@ -56,7 +56,7 @@ const Dashboard = () => {
 
   function handleDelete(e) {
     e.preventDefault()
-    axios.post(`${process.env.REACT_APP_SERVER_URL}/deleteuser`, { deletebatch })
+    axios.post(`https://users-api-neon.vercel.app/deleteuser`, { deletebatch })
       .then(res => {
         // console.log(res.data);
         window.alert(`${res.data.name} has been Deleted`)
@@ -74,7 +74,7 @@ const Dashboard = () => {
       setDeduction({ title: '', amount: '' })
       return alert('reason empty')
     }
-    axios.post(`${process.env.REACT_APP_SERVER_URL}/deductamt`, { deduction })
+    axios.post(`https://users-api-neon.vercel.app/deductamt`, { deduction })
       .then((res) => {
         if(res.data.isnumeric === true ){
           setLowbalance(res.data.lowBalance)
@@ -98,7 +98,7 @@ const Dashboard = () => {
       setEdittotal('')
       return alert(`some values are invalid`)
     }
-    axios.post(`${process.env.REACT_APP_SERVER_URL}/totaledit`, { editTotalBatchno, edittotal })
+    axios.post(`https://users-api-neon.vercel.app/totaledit`, { editTotalBatchno, edittotal })
       .then(res => {
         if(res.data === null){
           setEditTotalBatchno('')
@@ -116,7 +116,7 @@ const Dashboard = () => {
 
   function getAllUsers(e) {
     e.preventDefault()
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/findall`).then(res => {
+    axios.get(`https://users-api-neon.vercel.app/findall`).then(res => {
       // console.log(res.data);
       setAllusers(res.data)
     })
