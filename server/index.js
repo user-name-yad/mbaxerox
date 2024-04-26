@@ -59,9 +59,9 @@ async function ismatch(password,pswd){
 const verfiyUser = (req, res, next) => {
     const accesstoken = req.cookies.accessToken;
     if (!accesstoken) {
-        // if (renewToken(req, res)) {
-        //     next()
-        // }
+        if (renewToken(req, res)) {
+            next()
+        }
         return;
         else{
             return res.json({ valid: false, message: 'refresh token returns false' })
