@@ -12,6 +12,7 @@ const app = express()
 app.use(cors(
     {
         origin:"https://mbaxerox25.vercel.app",
+        // method:["POST","GET","DELETE"],
         credentials:true
     }
 ));
@@ -62,6 +63,7 @@ const verfiyUser = (req, res, next) => {
         if (renewToken(req, res)) {
             next()
         }
+   
     } else {
         jwt.verify(accesstoken, "access-token-secret-key", (err, decoded) => {
             if (err) return res.json({ valid: false, message: 'invalid token' })
