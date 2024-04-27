@@ -17,8 +17,8 @@ const Login = () => {
         axios.post(`https://users-api-neon.vercel.app/login`, { email, password })
             .then(res => {
                 if (res.data.Login) {
-                    cookies.set('accessToken',res.data.ass)
-                    cookies.set('refreshtoken',res.data.ref)
+                    cookies.set('accessToken',res.data.ass,{maxAge:900000})
+                    // cookies.set('refreshtoken',res.data.ref)
                     navigate('/dashboard')
                 }
                 else {
