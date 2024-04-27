@@ -96,37 +96,6 @@ const renewToken = (req, res) => {
     return exist
 }
 
-
-
-
-
-app.post('/loginn',(req,res,next)=>{
-    const {email,password} = req.body
-    AdminModel.findOne({ email })
-    .then(user=>{
-        if(user.password === password){
-            res.json("send token")
-        }
-    })
-})
-
-const verify = (req,res,next)=>{
-    const token = req.headers.authorization
-    jwt.verify(token,"secret_key",(err,decoded)=>{
-        if(err) res.json('err')
-        else{
-            console.log(decoded);
-    }
-    })
-}
-
-
-
-
-
-
-
-
 // const renewToken = (req, res) => {
 //     const refreshtoken = req.cookies.refreshToken;
 //     let exist = false;
@@ -146,6 +115,16 @@ const verify = (req,res,next)=>{
 
 app.get('/dashboard',verfiyUser, (req, res) => {
     return res.json({ valid: true, message: 'authorized' })
+})
+
+app.post('/dashboardd', (req, res) => {
+    const {ass} = req.body 
+    jwt.verify(ass,'access-token-secret-key',(err,decode)=>{
+        if (err) return res.json({ valid: false, message: 'invalid token' })
+            else {
+                res.json({valid:true})
+            }
+    })
 })
 
 app.post('/adduser', (req, res) => {
