@@ -33,7 +33,7 @@ const Dashboard = () => {
   // })
  useEffect(()=>{
     const ass = cookies.get('accessToken')
-    console.log(ass);
+    // console.log(ass);
     axios.post(`https://users-api-neon.vercel.app/dashboardd`,{ass})
     .then(res=>{
       if(!res.data.valid) navigate('/')
