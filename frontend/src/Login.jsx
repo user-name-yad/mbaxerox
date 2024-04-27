@@ -3,8 +3,11 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import './styles/login.css'
+import Cookies from 'universal-cookie'
+
 
 const Login = () => {
+    const cookies = new Cookies();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate()
@@ -14,6 +17,8 @@ const Login = () => {
         axios.post(`https://users-api-neon.vercel.app/login`, { email, password })
             .then(res => {
                 if (res.data.Login) {
+                    cookies.set('accessToken',res.data.ass)
+                    cookies.set('refreshtoken',res.data.ref)
                     navigate('/dashboard')
                 }
                 else {
