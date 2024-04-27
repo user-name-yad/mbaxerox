@@ -3,8 +3,11 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles/dashboard.css'
+import Cookies from 'universal-cookie'
+
 
 const Dashboard = () => {
+  const cookies = new Cookies();
   const navigate = useNavigate()
   const [name, setName] = useState('')
   const [batchno, setBatchno] = useState('')
@@ -19,16 +22,27 @@ const Dashboard = () => {
  const[lowbalance,setLowbalance] = useState([])
 
   axios.defaults.withCredentials=true
-  useEffect(()=>{
-      axios.get(`https://users-api-neon.vercel.app/dashboard`)
-      .then(res=>{
-          if(res.data.valid === false){
-              navigate('/')
-          }
-      })
-      .catch(err=>console.log(err))
+  // useEffect(()=>{
+  //     axios.get(`https://users-api-neon.vercel.app/dashboard`)
+  //     .then(res=>{
+  //         if(res.data.valid === false){
+  //             navigate('/')
+  //         }
+  //     })
+  //     .catch(err=>console.log(err))
+  // })
+ useEffect(()=>{
+    const ass = cookies.get('accessToken')
+    console.log(ass);
+    axios.post(`http://localhost:5000/dashboardd`,{ass})
+    .then(res=>{
+      if(!res.data.valid) navigate('/')
+    },[ass])
+    .catch(err=>console.log(err))
+
   })
 
+  
   function handleAddUser(e) {
     e.preventDefault()
     if(name==='' || name[0]===' ' || batchno==='' || batchno[0] === ' ' || total==='' || total[0]===' '){
