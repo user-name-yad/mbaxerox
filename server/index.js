@@ -38,8 +38,8 @@ app.post('/login', (req, res) => {
                 if (ismatch(password,user.password)) {
                     const accessToken = jwt.sign({ email: email }, "access-token-secret-key", { expiresIn: '15m' })
                     const refreshToken = jwt.sign({ email: email }, "refersh-token-secret-key", { expiresIn: '30m' })
-                    res.cookie('accessToken', accessToken, { maxAge: 900000 })
-                    res.cookie('refreshToken', refreshToken, { maxAge: 1800000, httpOnly: true, secure: true, sameSite: 'strict' })
+                    // res.cookie('accessToken', accessToken, { maxAge: 900000 })
+                    // res.cookie('refreshToken', refreshToken, { maxAge: 1800000, httpOnly: true, secure: true, sameSite: 'strict' })
                     // res.cookie('accesToken', accessToken, { maxAge: 300000, httpOnly: true, secure: true, sameSite: 'strict' })
                     return res.json({ Login: true ,ass:accessToken,ref:refreshToken})
                 }
